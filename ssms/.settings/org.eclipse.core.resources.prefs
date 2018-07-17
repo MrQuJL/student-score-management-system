@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/com/lizhou/bean/Clazz.java=UTF-8
+encoding//src/com/lizhou/bean/Exam.java=UTF-8
+encoding//src/com/lizhou/bean/Grade.java=UTF-8
+encoding//src/com/lizhou/bean/Teacher.java=UTF-8
+encoding//src/com/lizhou/dao/impl/BaseDaoImpl.java=UTF-8
+encoding//src/com/lizhou/dao/impl/ClazzDaoImpl.java=UTF-8
+encoding//src/com/lizhou/service/GradeService.java=UTF-8
+encoding//src/com/lizhou/servlet/GradeServlet.java=UTF-8
+encoding//src/com/lizhou/servlet/SystemServlet.java=UTF-8
