@@ -17,22 +17,22 @@
 	 var _menus = {"menus":[
 						{"menuid":"1","icon":"","menuname":"教学管理",
 							"menus":[
-									{"menuid":"11","menuname":"成绩查询","icon":"icon-exam","url":"ExamServlet?method=toExamListView"}
+									{"menuid":"11","menuname":"成绩查询","icon":"icon-exam","url":"ScoreServlet02/EscoreListView"}
 								]
 						},
 						{"menuid":"2","icon":"","menuname":"班级信息",
 							"menus":[
-									{"menuid":"21","menuname":"班级通讯录","icon":"icon-user-student","url":"StudentServlet?method=toStudentListView"},
+									{"menuid":"21","menuname":"班级通讯录","icon":"icon-user-student","url":"StudentServlet/StudentListView"},
 								]
 						},
 						{"menuid":"3","icon":"","menuname":"系统管理",
 							"menus":[
-							        {"menuid":"51","menuname":"个人信息","icon":"icon-set","url":"SystemServlet?method=toAdminPersonalView"},
+							        {"menuid":"51","menuname":"个人信息","icon":"icon-set","url":"StudentServlet?method=toStudentPersonalView"},
 								]
 						}
 				]};
-
-
+	 
+		// 
     </script>
 
 </head>

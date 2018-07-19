@@ -64,10 +64,19 @@
 	<servlet>
 		<description>学生信息管理</description>
 		<servlet-name>StudentServlet</servlet-name>
-		<servlet-class>com.lizhou.servlet.StudentServlet</servlet-class>
+		<servlet-class>com.lizhou.servlet.StudentServlet125</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StudentServlet</servlet-name>
+		<url-pattern>/StudentServlet/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description>学生信息管理(lz)</description>
+		<servlet-name>StudentServlet24</servlet-name>
+		<servlet-class>com.lizhou.servlet.StudentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentServlet24</servlet-name>
 		<url-pattern>/StudentServlet</url-pattern>
 	</servlet-mapping>
 	<servlet>
@@ -154,4 +163,48 @@
     <servlet-name>ExamServlet39</servlet-name>
     <url-pattern>/ExamServlet39/*</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExamServlet02</servlet-name>
+    <url-pattern>/ExamServlet02/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ScoreServlet02</servlet-name>
+    <url-pattern>/ScoreServlet02/*</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ScoreServlet02</servlet-name>
+    <servlet-class>com.lizhou.servlet.ScoreServlet02</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ExamServlet02</servlet-name>
+    <servlet-class>com.lizhou.servlet.ExamServlet02</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TeacherServlet05</servlet-name>
+    <url-pattern>/TeacherServlet05/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TeacherServlet05</servlet-name>
+    <servlet-class>com.lizhou.servlet.TeacherServlet05</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>TeacherAddressServlet05</servlet-name>
+    <url-pattern>/TeacherAddressServlet05</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TeacherAddressServlet05</servlet-name>
+    <servlet-class>com.lizhou.servlet.TeacherAddressServlet05</servlet-class>
+  </servlet>
+  
 </web-app>

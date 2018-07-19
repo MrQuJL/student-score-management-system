@@ -22,17 +22,15 @@
 						},
 						{"menuid":"2","icon":"","menuname":"教师信息",
 							"menus":[
-									{"menuid":"21","menuname":"教师通讯录","icon":"icon-user-student","url":"StudentServlet?method=toStudentListView"},
+									{"menuid":"21","menuname":"教师通讯录","icon":"icon-user-student","url":"TeacherAddressServlet05?method=toTeaATTENListView"},
 								]
 						},
 						{"menuid":"3","icon":"","menuname":"系统管理",
 							"menus":[
-							        {"menuid":"51","menuname":"个人信息","icon":"icon-set","url":"SystemServlet?method=toAdminPersonalView"},
+							        {"menuid":"51","menuname":"个人信息","icon":"icon-set","url":"TeacherServlet?method=toTeacherPersonalView"},
 								]
 						}
 				]};
-
-
     </script>
 
 </head>

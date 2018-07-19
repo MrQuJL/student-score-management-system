@@ -16,7 +16,10 @@ String path = request.getContextPath();
 	<script type="text/javascript" src="<%=path%>/echarts/echarts.js"></script>
 	<script type="text/javascript">
 	var scoreMgr = { // 一个全局的对象，用于记录当前登记的成绩的考试id
-		examId : 0
+		examId : 0,
+		gradeName:"",
+		clazzName:"",
+		courseName:""
 	};
 	$(function() {
 		//datagrid初始化 
@@ -50,7 +53,7 @@ String path = request.getContextPath();
  		        {field:'remark',title:'备注',width:200}
 	 		]], 
 	        toolbar: "#toolbar"
-	    }); 
+	    });
 	   
 	    // 打开添加考试对话框
 	    $("#add").click(function(){
@@ -402,10 +405,10 @@ String path = request.getContextPath();
 	<!-- 成绩统计窗口 -->
 	<div id="countScoreDialog" class="easyui-dialog" title="成绩统计" 
 		style="left:140px;top:50px;" toolbar="#count-score-toolbar"
-		data-options="iconCls:'icon_chart-bar',resizable:true,modal:true,closed:true">
+		data-options="iconCls:'icon-chart_bar',resizable:true,modal:true,closed:true">
 		
 		<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-    	<div id="mainContainer" style="width: 600px;height:400px;"></div>
+    	<div id="mainContainer" style="width: 700px;height:400px;"></div>
     	
 	</div>
 	<!-- 成绩统计窗口的toolbar -->
@@ -435,11 +438,13 @@ String path = request.getContextPath();
     					valueField: 'id',
     					textField: 'name',
     					onSelect: function(rec){
-    						if ($('#add_course_score_count').combobox('getValue') == '') {
+    						if ($('#add_clazz_score_count').combobox('getValue') == '') {
     							$.messager.alert('消息提醒','请先选择要登记成绩的考试!','warning');
     							return;
     						}
-    						loadScoreChart(scoreMgr.examId, $('#add_course_score_count').combobox('getValue'), rec.id);
+    						scoreMgr.clazzName = $('#add_clazz_score_count').combobox('getText');
+    						scoreMgr.courseName = $('#add_course_score_count').combobox('getText');
+    						loadScoreChart(scoreMgr.examId, $('#add_clazz_score_count').combobox('getValue'), rec.id);
     					}
     				"/>
     			</td>
@@ -549,6 +554,10 @@ String path = request.getContextPath();
 			examClazz = row.clazzName == undefined ? "" : row.clazzName;
 			courseId = row.courseId == undefined ? "" : row.courseId; // 课程id
 			examCourse = row.courseName == undefined ? "" : row.courseName;
+			
+			scoreMgr.gradeName = row.gradeName;
+			scoreMgr.clazzName = row.clazzName;
+			scoreMgr.courseName = row.courseName;
 		}
 		$('#add_course_score_count').combobox("clear");
 		$("#countScoreDialog").dialog("open");
@@ -579,13 +588,9 @@ String path = request.getContextPath();
     	});
     	
     	// 班级id和课程id均不为空的时候就直接查询对应的学生成绩
-    	// 有一个为空就不查
-    	/* if (clazzId != "" && courseId != "") {
-    		loadStudentScore(examId, clazzId, courseId);
-    	} */
-    	
-    	// 加载echarts图表
-		// loadScoreChart();
+    	if (clazzId != "" && courseId != "") {
+    		loadScoreChart(examId, clazzId, courseId);
+    	}
 	});
 	
 	// 加载成绩统计图表
@@ -601,84 +606,77 @@ String path = request.getContextPath();
         var myChart = echarts.init(document.getElementById('mainContainer'));
 
 		// 此处去后台请求数据------------------------------
-		// 准备好echarts所需的option对象
-        var option = {
-       	    backgroundColor: '#2c343c',
-
-       	    title: {
-       	        text: '2013级1班语文考试成绩分布图',
-       	        left: 'center',
-       	        top: 20,
-       	        textStyle: {
-       	            color: '#ccc'
-       	        }
-       	    },
-
-       	    tooltip : {
-       	        trigger: 'item',
-       	        formatter: "{a} <br/>{b} : {c} ({d}%)"
-       	    },
-
-       	    visualMap: {
-       	        show: false,
-       	        min: 80,
-       	        max: 600,
-       	        inRange: {
-       	            colorLightness: [0, 1]
-       	        }
-       	    },
-       	    series : [
-       	        {
-       	            name:'分值范围',
-       	            type:'pie',
-       	            radius : '55%',
-       	            center: ['50%', '50%'],
-       	            data:[
-       	                {value:335, name:'0~90'},
-       	                {value:310, name:'90~100'},
-       	                {value:274, name:'100~120'},
-       	                {value:235, name:'120~140'},
-       	                {value:400, name:'140~150'}
-       	            ].sort(function (a, b) { return a.value - b.value; }),
-       	            roseType: 'radius',
-       	            label: {
-       	                normal: {
-       	                    textStyle: {
-       	                        color: 'rgba(255, 255, 255, 0.3)'
-       	                    }
-       	                }
-       	            },
-       	            labelLine: {
-       	                normal: {
-       	                    lineStyle: {
-       	                        color: 'rgba(255, 255, 255, 0.3)'
-       	                    },
-       	                    smooth: 0.2,
-       	                    length: 10,
-       	                    length2: 20
-       	                }
-       	            },
-       	            itemStyle: {
-       	                normal: {
-       	                    color: '#c23531',
-       	                    shadowBlur: 200,
-       	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-       	                }
-       	            },
-
-       	            animationType: 'scale',
-       	            animationEasing: 'elasticOut',
-       	            animationDelay: function (idx) {
-       	                return Math.random() * 200;
-       	            }
-       	        }
-       	    ]
-       	};
-		
-     	// 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+		var msg; // 存储从后台取出的成绩统计数据
+		$.post("/ssms/ExamServlet39/countScore?t="+new Date().getTime(),
+			{"examId":examId,"clazzId":clazzId,"courseId":courseId},
+			function(data){
+				msg = eval(data);
+				// 准备好echarts所需的option对象
+		        var option = {
+				    title : {
+				        text: scoreMgr.gradeName + scoreMgr.clazzName 
+				        	+ scoreMgr.courseName + "考试成绩图",
+				        subtext: '各分数段人数分布情况',
+				        x:'center'
+				    },
+				    tooltip : {
+				        trigger: 'item',
+				        formatter: "{a} <br/>{b} : {c} ({d}%)"
+				    },
+				    legend: {
+				        
+				        x : 'center',
+				        y : 'bottom',
+				        //data:['普通用户','铁牌用户','铜牌用户','银牌用户','金牌用户','钻石用户','蓝钻用户','红钻用户']
+				        data:['0~90','90~100','100~120','120~140','140~150']
+				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            mark : {show: false},
+				            dataView : {show: false, readOnly: true},
+				            magicType : {
+				                show: true, 
+				                type: ['pie', 'funnel'],
+				                option: {
+				                    funnel: {
+				                        x: '25%',
+				                        width: '50%',
+				                        funnelAlign: 'left',
+				                        max: 6200
+				                    }
+				                }
+				            },
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
+				    calculable : true,
+				    series : [
+				        {
+				            name:'人数',
+				            type:'pie',
+				            radius : '55%',
+				            center: ['50%', '50%'],
+				            /* data:[
+				                {value:1200, name:'普通用户'},
+				                {value:1100, name:'铁牌用户'},
+								{value:1300, name:'铜牌用户'},
+								{value:1000, name:'银牌用户'},
+								{value:980, name:'金牌用户'},
+								{value:850, name:'钻石用户'},
+								{value:550, name:'蓝钻用户'},
+								{value:220, name:'红钻用户'},
+				            ], */
+				            data:msg
+				        }
+				    ]
+				};
+		     	// 使用刚指定的配置项和数据显示图表。
+		        myChart.setOption(option);
+			}
+		);
 	}
-	
 </script>
 </body>
 </html>
