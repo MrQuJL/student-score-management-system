@@ -5,6 +5,7 @@ import java.util.List;
 import com.lizhou.bean.Exam;
 import com.lizhou.dto.ExamDTO39;
 import com.lizhou.dto.ScoreDTO39;
+import com.lizhou.dto.ScoreRangeDTO39;
 
 /**
  * 考试数据层接口
@@ -36,9 +37,18 @@ public interface ExamDaoInter39 extends BaseDaoInter {
 	
 	/**
 	 * 更新学生成绩
-	 * @param id
-	 * @param score
+	 * @param id escore的主键
+	 * @param score 学生成绩
 	 */
 	public void updateScore(Integer id, Integer score);
+	
+	/**
+	 * 统计某次考试某班某门课程的学生成绩范围
+	 * @param examId 考试id
+	 * @param clazzId 班级id
+	 * @param courseId 课程id
+	 * @return 学生成绩范围列表
+	 */
+	public List<ScoreRangeDTO39> countScore(Integer examId, Integer clazzId, Integer courseId);
 	
 }

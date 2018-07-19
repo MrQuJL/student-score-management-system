@@ -5,8 +5,7 @@ import java.util.List;
 import com.lizhou.bean.Course;
 
 /**
- * 课程数据层接口
- * @author 曲健磊
+ * @author 赵学成
  */
 public interface CourseDaoInter extends BaseDaoInter {
 
