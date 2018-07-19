@@ -7,10 +7,34 @@ import java.util.List;
  * @author bojiangzhou
  *
  */
-public class Student {
+public class Student125 {
 	
 	private int id; //ID
 	
+	public String getClazzName() {
+		return clazzName;
+	}
+
+
+
+	public void setClazzName(String clazzName) {
+		this.clazzName = clazzName;
+	}
+
+
+
+	public String getGradeName() {
+		return gradeName;
+	}
+
+
+
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+
+
+
 	private String number; //学号
 	
 	private String name; //姓名
@@ -25,30 +49,46 @@ public class Student {
 	
 	private int clazzid; //班级ID
 	
+	private String clazzName;//班级名称
+	
 	private Grade grade; //年级
 	
 	private int gradeid; //年级ID
 	
+	private String gradeName;//年级名称
+	
+	
+	public Student125() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Student125(int id, String number, String name, String sex,
+			String phone, String qq, Clazz clazz, int clazzid,
+			String clazzName, Grade grade, int gradeid, String gradeName,
+			List<EScore> scoreList) {
+		super();
+		this.id = id;
+		this.number = number;
+		this.name = name;
+		this.sex = sex;
+		this.phone = phone;
+		this.qq = qq;
+		this.clazz = clazz;
+		this.clazzid = clazzid;
+		this.clazzName = clazzName;
+		this.grade = grade;
+		this.gradeid = gradeid;
+		this.gradeName = gradeName;
+		this.scoreList = scoreList;
+	}
+
+
+
 	private List<EScore> scoreList; //成绩集合
 	
-	private String clazzname;
-	public String getClazzname() {
-		return clazzname;
-	}
-
-	public void setClazzname(String clazzname) {
-		this.clazzname = clazzname;
-	}
-
-	public String getGradename() {
-		return gradename;
-	}
-
-	public void setGradename(String gradename) {
-		this.gradename = gradename;
-	}
-
-	private String gradename;
 	public int getId() {
 		return id;
 	}

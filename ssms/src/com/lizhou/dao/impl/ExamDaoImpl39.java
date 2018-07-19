@@ -8,6 +8,7 @@ import com.lizhou.bean.Exam;
 import com.lizhou.dao.inter.ExamDaoInter39;
 import com.lizhou.dto.ExamDTO39;
 import com.lizhou.dto.ScoreDTO39;
+import com.lizhou.dto.ScoreRangeDTO39;
 
 public class ExamDaoImpl39 extends BaseDaoImpl implements ExamDaoInter39 {
 
@@ -69,6 +70,25 @@ public class ExamDaoImpl39 extends BaseDaoImpl implements ExamDaoInter39 {
 		String sql = "UPDATE escore SET score = ? WHERE id = ?";
 		Object[] param = {score, id};
 		this.insert(sql, param);
+	}
+
+	@Override
+	public List<ScoreRangeDTO39> countScore(Integer examId, Integer clazzId, Integer courseId) {
+		String sql = " SELECT " +
+			" COUNT(CASE WHEN score >= 0 AND score < 90 THEN 'A' END) 'A', " +
+			" COUNT(CASE WHEN score >= 90 AND score < 100 THEN 'B' END) 'B', " +
+			" COUNT(CASE WHEN score >= 100 AND score < 120 THEN 'C' END) 'C', " +
+			" COUNT(CASE WHEN score >= 120 AND score < 140 THEN 'D' END) 'D', " +
+			" COUNT(CASE WHEN score >= 140 AND score <= 150 THEN 'E' END) 'E' " +
+			" FROM escore WHERE examid = ? " +
+			" AND clazzid = ? AND courseid = ?";
+		Object[] param = {examId, clazzId, courseId};
+		List<Object> list = this.getList(ScoreRangeDTO39.class, sql, param);
+		List<ScoreRangeDTO39> result = new ArrayList<ScoreRangeDTO39>();
+		for (Object obj : list) {
+			result.add((ScoreRangeDTO39)obj);
+		}
+		return result;
 	}
 
 }

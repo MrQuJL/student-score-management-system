@@ -7,11 +7,7 @@ import com.lizhou.bean.Course;
 import com.lizhou.dao.inter.CourseDaoInter;
 
 /**
- * 类名称：课程数据接口的实现类
- * 全限定性类名: com.lizhou.dao.impl.CourseDaoImpl
- * @author 曲健磊
- * @date 2018年7月11日下午3:06:50
- * @version V1.0
+ * @author 赵学成
  */
 public class CourseDaoImpl extends BaseDaoImpl implements CourseDaoInter {
 
