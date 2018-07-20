@@ -16,11 +16,7 @@ import com.lizhou.tools.MysqlTool;
 import com.lizhou.tools.StringTool;
 
 /**
- * 类名称：课程服务层
- * 全限定性类名: com.lizhou.service.CourseService
- * @author 曲健磊
- * @date 2018年7月11日下午3:07:30
- * @version V1.0
+ * @author 赵学成
  */
 public class CourseService {
 	
@@ -55,6 +51,18 @@ public class CourseService {
 		
         String result = JSONObject.fromObject(jsonMap).toString();
         return result;
+	}
+	
+	/**
+	 * 查询出所有的课程列表(json字符串只有id和name)
+	 * @return
+	 */
+	public String getAllCourseListForGrade(){
+		//获取数据
+		List<Course> list = dao.getAllCourseList(null);
+		
+		String result = JSONArray.toJSONString(list);// fromObject(list).toString();
+		return result;
 	}
 	
 	/**
