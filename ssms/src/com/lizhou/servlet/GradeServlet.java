@@ -1,14 +1,17 @@
 package com.lizhou.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lizhou.service.GradeService;
 
+/**
+ * @author 赵学成
+ */
 public class GradeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -26,11 +29,11 @@ public class GradeServlet extends HttpServlet {
 		//获取请求的方法
 		String method = request.getParameter("method");
 		
-		if("GradeList".equalsIgnoreCase(method)){ //获取所有年级
+		if("GradeList".equals(method)){ //获取所有年级
 			gradeList(request, response);
-		} else if("AddGrade".equalsIgnoreCase(method)){ //添加年级
+		} else if("AddGrade".equals(method)){ //添加年级
 			addGrade(request, response);
-		} else if("deleteGrade".equalsIgnoreCase(method)){ //删除年级
+		} else if("DeleteGrade".equals(method)){ //删除年级
 			deleteGrade(request, response);
 		}
 		

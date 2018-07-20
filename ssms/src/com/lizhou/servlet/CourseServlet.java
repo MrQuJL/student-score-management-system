@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.lizhou.bean.Course;
 import com.lizhou.service.CourseService;
 
+/**
+ * @author 赵学成
+ */
 public class CourseServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -35,18 +38,34 @@ public class CourseServlet extends HttpServlet {
 		// 获取uri的最后一部分
 		String opt = uriArray[uriArray.length - 1];
 		
-		if("courseList".equalsIgnoreCase(opt)){ // 查询所有的课程列表(分页查询)
+		if("courseList".equals(opt)){ // 查询所有的课程列表(分页查询)
 			getCourseList(request, response);
-		} else if("AddCourse".equalsIgnoreCase(opt)){ //添加班级
+		} else if("AddCourse".equals(opt)){ //添加班级
 			addCourse(request, response);
-		} else if("DeleteCourse".equalsIgnoreCase(opt)){ //删除班级
+		} else if("DeleteCourse".equals(opt)){ //删除班级
 			deleteCourse(request, response);
 		} else if ("getCourseListByClazzId".equals(opt)) {
 			getCourseListByClazzId(request, response);
+		} else if ("CourseList".equals(opt)) { // 进入年级管理页面时查询的所有课程信息(不分页)
+			getCourseListForGrade(request, response);
 		}
 		
 	}
 	
+	/**
+	 * 查询出所有的课程信息,只有id和name
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void getCourseListForGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String courses = service.getAllCourseListForGrade();
+		PrintWriter out = response.getWriter();
+		out.print(courses);
+		out.flush();
+		out.close();
+	}
+
 	/**
 	 * 查询出指定班级下的所有课程
 	 * @param request

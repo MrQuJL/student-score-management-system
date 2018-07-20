@@ -48,10 +48,33 @@ public class ExamServlet39 extends HttpServlet {
 			addExam(request, response);
 		} else if ("ScoreList".equals(opt)) { // 查询学生成绩列表
 			getScoreList(request, response);
-			
 		} else if ("updateScore".equals(opt)) { // 更新学生的成绩
 			updateScore(request, response);
+		} else if ("countScore".equals(opt)) {
+			countScore(request, response);
 		}
+	}
+
+	/**
+	 * 统计成绩范围
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void countScore(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String eId = request.getParameter("examId");
+		String czId = request.getParameter("clazzId");
+		String cseId = request.getParameter("courseId");
+		
+		Integer examId = Integer.valueOf(eId);
+		Integer clazzId = Integer.valueOf(czId);
+		Integer courseId = Integer.valueOf(cseId);
+		String scoreRange = service.countScore(examId, clazzId, courseId);
+		
+		PrintWriter out = response.getWriter();
+		out.print(scoreRange);
+		out.flush();
+		out.close();
 	}
 
 	/**
