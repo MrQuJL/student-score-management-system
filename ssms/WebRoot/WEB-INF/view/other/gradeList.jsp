@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>教师列表</title>
+	<title>年级列表</title>
 	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="easyui/css/demo.css">
@@ -11,7 +14,7 @@
 	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="easyui/js/validateExtends.js"></script>
 	<script type="text/javascript">
-	$(function() {	
+	$(function() {
 		//datagrid初始化 
 	    $('#dataList').datagrid({ 
 	        title:'年级列表', 
@@ -44,12 +47,12 @@
  						} else {
  							return value;
  						}
- 					}	
+ 					}
  		        },
-	 		]], 
+	 		]],
 	        toolbar: "#toolbar"
-	    }); 
-	   
+	    });
+	    
 	    //设置工具类按钮
 	    $("#add").click(function(){
 	    	$("#addDialog").dialog("open");
@@ -90,7 +93,7 @@
 	  		multiple: true, //可多选
 	  		editable: false, //不可编辑
 	  		method: "post",
-	  		url: "CourseServlet?method=CourseList&t="+new Date().getTime(),
+	  		url: "CourseServlet/CourseList?t="+new Date().getTime(),
 	  	});
 	    
 	  	//设置添加学生窗口

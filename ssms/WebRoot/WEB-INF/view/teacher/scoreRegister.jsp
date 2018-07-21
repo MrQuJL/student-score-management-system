@@ -22,23 +22,23 @@ String path = request.getContextPath();
 		courseName:""
 	};
 	$(function() {
-		//datagrid初始化 
-	    $('#dataList').datagrid({ 
-	        title:'考试列表', 
-	        iconCls:'icon-more',//图标 
-	        border: true, 
-	        collapsible: false,//是否可折叠的 
+		//datagrid初始化
+	    $('#dataList').datagrid({
+	        title:'考试列表',
+	        iconCls:'icon-more',//图标
+	        border: true,
+	        collapsible: false,//是否可折叠的
 	        fit: true,//自动大小 
 	        method: "post",
 	        url:"ExamServlet39/ExamList?t="+new Date().getTime(),
-	        idField:'id', 
-	        singleSelect: true,//是否单选 
-	        pagination: false,//分页控件 
-	        rownumbers: true,//行号 
+	        idField:'id',
+	        singleSelect: true,//是否单选
+	        pagination: false,//分页控件
+	        rownumbers: true,//行号
 	        sortName:'id',
-	        sortOrder:'DESC', 
+	        sortOrder:'DESC',
 	        remoteSort: false,
-	        columns: [[  
+	        columns: [[
 				{field:'chk',checkbox: true,width:50},
  		        {field:'id',title:'ID',width:50, sortable: true},
  		        {field:'examName',title:'考试名称',width:100},
@@ -51,10 +51,10 @@ String path = request.getContextPath();
  		        {field:'courseId',title:'考试科目id',width:0,hidden:true},
  		        {field:'courseName',title:'考试科目',width:100},
  		        {field:'remark',title:'备注',width:200}
-	 		]], 
+	 		]],
 	        toolbar: "#toolbar"
 	    });
-	   
+	    
 	    // 打开添加考试对话框
 	    $("#add").click(function(){
 	    	$("#addDialog").dialog("open");
@@ -245,7 +245,7 @@ String path = request.getContextPath();
                	}
 	 		]]
 	    });
-	}
+	};
 	
 	</script>
 </head>
@@ -513,7 +513,7 @@ String path = request.getContextPath();
 	    }
 	}
 	
-	// 更新学生的成绩,返回true或者false来表示更新成功或者失败
+	// 更新学生的成绩
 	var updateScore = function(id, score){
 		$.ajax({
 			type: "POST",
