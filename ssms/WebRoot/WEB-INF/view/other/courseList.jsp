@@ -37,6 +37,16 @@ String path = request.getContextPath();
 	 		]],
 	        toolbar: "#toolbar"
 	    });
+		var p = $('#dataList').datagrid('getPager');
+	    //设置分页控件
+	    $(p).pagination({ 
+	        pageSize: 5,//每页显示的记录条数，默认为10 
+	        pageList: [5,20,30,50,100],//可以设置每页记录条数的列表 
+	        beforePageText: '第',//页数文本框前显示的汉字 
+	        afterPageText: '页    共 {pages} 页',
+	        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+	    });
+	    $(".pagination").css({"margin-top":"-26px"});
 	};
 	$(function() {	
 		//datagrid初始化 
@@ -93,37 +103,6 @@ String path = request.getContextPath();
             	});
             }
 	    });
-	    
-	  	//年级下拉框
-	  	/* $("#gradeList").combobox({
-	  		width: "150",
-	  		height: "25",
-	  		valueField: "id",
-	  		textField: "name",
-	  		multiple: false, //可多选
-	  		editable: false, //不可编辑
-	  		method: "post",
-	  		url: "CourseServlet?method=CourseList&t="+new Date().getTime(),
-	  		onChange: function(newValue, oldValue){
-	  			$('#dataList').datagrid("options").queryParams = {gradeid: newValue};
-	  			$('#dataList').datagrid("reload");
-	  		}
-	  	}); */
-	    
-	  	//添加年级下拉框
-	  	/* $("#add_gradeList").combobox({
-	  		valueField: "id",
-	  		textField: "name",
-	  		multiple: false, //可多选
-	  		editable: false, //不可编辑
-	  		method: "post",
-	  		url: "CourseServlet?method=CourseList&t="+new Date().getTime(),
-	  		onLoadSuccess: function(){
-		  		//默认选择第一条数据
-				var data = $(this).combobox("getData");
-				$(this).combobox("setValue", data[0].id);
-	  		}
-	  	}); */
 	  	
 	  	//设置添加学生窗口
 	    $("#addDialog").dialog({
@@ -162,20 +141,8 @@ String path = request.getContextPath();
 									$("#addDialog").dialog("close");
 									//清空原表格数据
 									$("#add_name").textbox('setValue', "");
-									
-									//重新刷新页面数据
-						  			// $('#gradeList').combobox("setValue", gradeid);
-						  			// $('#dataList').datagrid("reload");
+									// 添加成功后重新加载课程
 						  			loadCourse();
-						  			//设置分页控件
-								    $(p).pagination({ 
-								        pageSize: 5,//每页显示的记录条数，默认为10 
-								        pageList: [5,20,30,50,100],//可以设置每页记录条数的列表 
-								        beforePageText: '第',//页数文本框前显示的汉字 
-								        afterPageText: '页    共 {pages} 页',
-								        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
-								    });
-								    $(".pagination").css({"margin-top":"-26px"});
 								} else{
 									$.messager.alert("消息提醒","添加失败!","warning");
 									return;
@@ -235,16 +202,15 @@ String path = request.getContextPath();
 	//模糊查询
 	$("#query").click(function(){
 		var courseName = $(".validatebox-text").val();
-		// alert(courseName);
-		$('#dataList').datagrid({ 
-	        title:'课程列表', 
-	        iconCls:'icon-more',//图标 
-	        border: true, 
-	        collapsible: false,//是否可折叠的 
+		$('#dataList').datagrid({
+	        title:'课程列表',
+	        iconCls:'icon-more', // 图标 
+	        border: true,
+	        collapsible: false,// 是否可折叠的 
 	        fit: true,//自动大小 
 	        method: "post",
 	        url:"CourseServlet/courseList?page=1&rows=5&courseName=" + courseName + "&t="+new Date().getTime(),
-	        idField:'id', 
+	        idField:'id',
 	        singleSelect: false,//是否单选
 	        pagination: true,//分页控件
 	        rownumbers: true,//行号
@@ -258,17 +224,24 @@ String path = request.getContextPath();
 	 		]],
 	        toolbar: "#toolbar"
 	    });
-		var p = $('#dataList').datagrid('getPager'); 
+		var p = $('#dataList').datagrid('getPager');
 	    //设置分页控件 
-	    $(p).pagination({ 
+	    $(p).pagination({
 	        pageSize: 5,//每页显示的记录条数，默认为10 
 	        pageList: [5,20,30,50,100],//可以设置每页记录条数的列表 
 	        beforePageText: '第',//页数文本框前显示的汉字 
 	        afterPageText: '页    共 {pages} 页', 
 	        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+	        onSelectPage: function (pageNumber, pageSize) {
+	            PageDataGridView(pageNumber, pageSize);//重新加载
+	        }
 	    });
 	    $(".pagination").css({"margin-top":"-26px"});
 	});
+
+	var PageDataGridView = function(pi,ps) {
+		$('#dataList').datagrid("reload","CourseServlet/courseList?page="+pi+"&rows="+ps+"&t="+new Date().getTime());
+	}
 </script>
 </body>
 </html>
